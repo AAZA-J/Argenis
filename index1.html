@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas con React</title>
+    <link rel="stylesheet" href="Mi_estilo.css"> 
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        class ListaDeTareas extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    tareas: [],
+                    nuevaTarea: ''
+                };
+            }
+
+            manejarCambio = (event) => {
+                this.setState({ nuevaTarea: event.target.value });
+            };
+
+            agregarTarea = () => {
+                if (this.state.nuevaTarea.trim() !== '') {
+                    this.setState(prevState => ({
+                        tareas: [...prevState.tareas, prevState.nuevaTarea],
+                        nuevaTarea: ''
+                    }));
+                }
+            };
+
+            eliminarTarea = (indice) => {
+                this.setState(prevState => ({
+                    tareas: prevState.tareas.filter((_, i) => i !== indice)
+                }));
+            };
+
+            render() {
+                return (
+                    React.createElement('div', {},
+                        React.createElement('h1', {}, 'Lista de Tareas'),
+                        React.createElement('input', {
+                            type: 'text',
+                            value: this.state.nuevaTarea,
+                            onChange: this.manejarCambio,
+                            placeholder: 'Agregar nueva tarea'
+                        }),
+                        React.createElement('button', { onClick: this.agregarTarea }, 'Agregar'),
+                        React.createElement('ul', {},
+                            this.state.tareas.map((tarea, index) =>
+                                React.createElement('li', { key: index },
+                                    tarea,
+                                    React.createElement('button', {
+                                        onClick: () => this.eliminarTarea(index)
+                                    }, 'Eliminar')
+                                )
+                            )
+                        )
+                    )
+                );
+            }
+        }
+
+        // Renderiza el componente en el DOM
+        const domContainer = document.querySelector('#app');
+        const root = ReactDOM.createRoot(domContainer);
+        root.render(React.createElement(ListaDeTareas));
+    </script>
+</body>
+</html>

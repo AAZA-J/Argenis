@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Prueba JavaScript</title>
+    <link rel="stylesheet" href="Mi_estilo.css"> 
+</head>
+<body>
+    <div class=" ContenedorGeneral">
+        
+        <header>
+            <h1>Calentando Motores</h1> 
+        </header>
+
+        <section class="Section_Alinear">
+            <label for="idnombre">Ingrese nombre:</label> 
+            <input class="input" type="text" id="idnombre">
+            <p>Este es el primer párrafo que contiene un botón:</p> 
+            
+            <label for="idapellido">Ingrese apellido:</label> 
+            <input class="input" type="text" id="idapellido">
+            <br>
+            <button type="button" id="btn_Ejecutar">Enviar</button>
+            <p>Este es el segundo párrafo donde se mostrará el resultado:</p>
+            <output >
+
+            </output> 
+        </section>
+    </div>
+<script>
+    const saludar =() =>{
+        var intro ="Gracias por visitar mi web ";
+        const info = document.querySelector('#idnombre').value;
+        const infoa = document.querySelector('#idapellido').value;
+        document.querySelector('output').value = intro + info +" "+ infoa  ;
+    }
+    document.querySelector('button').addEventListener('click',saludar);
+</script>
+    
+</html> 
